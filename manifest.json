@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "GitHub Actions Full Time Display",
+  "version": "1.0",
+  "permissions": ["activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*/*/actions*", "https://github.com/*/*/actions?page=*"],
+      "js": ["content.js"]
+    }
+  ],
+  "description": "Display full run time on GitHub Actions without hover."
+}
