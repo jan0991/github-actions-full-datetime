@@ -4,17 +4,6 @@ function isGitHubActionsPage() {
 
 if (isGitHubActionsPage()) {
 
-function parseDateTime(dateTimeStr) {
-    // Remove parentheses and split the string
-    const parts = dateTimeStr.replace(/[()]/g, '').split(',');
-
-    // Combine the date and time parts and replace the GMT part
-    const formattedStr = `${parts[0]},${parts[1].trim()} ${parts[2].split(' ')[1]}`;
-    
-    // Parse the date
-    return new Date(formattedStr);
-}
-
 function formatDateTime(date) {
     // Format the date and time; you can adjust the format as needed
     return date.toLocaleString('en-US', { 
@@ -27,11 +16,6 @@ function formatDateTime(date) {
     });
 }
 
-function displayLocalTime(dateTimeStr) {
-    const date = parseDateTime(dateTimeStr);
-    return formatDateTime(date);
-}
-
 
 function updateRunTimeDisplay() {
     const timeElements = document.querySelectorAll('relative-time');
@@ -39,8 +23,8 @@ function updateRunTimeDisplay() {
     console.log('Found time elements:', timeElements.length); // Debugging line
 
     timeElements.forEach(el => {
-        const fullTime = el.getAttribute('title');
-        const localTime = displayLocalTime(fullTime);
+        const fullTime = el.getAttribute('datetime');
+        const localTime = formatDateTime(new Date(fullTime));
         if (fullTime && !el.classList.contains('full-time-updated')) {
             const newElement = document.createElement('div');
             newElement.textContent = `${localTime}`;
